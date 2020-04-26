@@ -1,0 +1,17 @@
+1.
+for $b in doc("books.xml")//book
+order by xs:float($b/price) descending, $b/title ascending
+return $b/title
+
+
+2.
+doc("books.xml")//book[exists(index-of(author, 'Rajati'))]
+
+3.
+for $a in distinct-values(doc("books.xml")//author)
+return <res>
+ <name>{$a}</name>
+ <count>
+ {count(doc("books.xml")//book[exists(indexof(author,$a))]) }
+ </count>
+ </res>
